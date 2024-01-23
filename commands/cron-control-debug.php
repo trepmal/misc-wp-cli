@@ -76,9 +76,9 @@ class Cron_Control_Debug_CLI extends WP_CLI_Command {
 					'action'   => $job->action,
 					'instance' => $job->instance,
 					'args'     => $job->args,
-					'match'    => ( $args_match ? '✅ md5( args ) match instance' : "❌ WARNING: args do not match instance" ),
-					'args_ok'  => ( $args_ok ? '✅ args can unserialize' : "❌ WARNING: cannot unserialize" ),
-					'action_match'  => ( $action_match ? '✅ md5( action ) match action_hash' : "❌ WARNING: action does not match action_hashed" ),
+					'args_match'    => ( $args_match   ? '✅ md5( args ) match instance'        : "❌ WARNING: args do not match instance" ),
+					'args_ok'       => ( $args_ok      ? '✅ args can unserialize'              : "❌ WARNING: cannot unserialize" ),
+					'action_match'  => ( $action_match ? '✅ md5( action ) match action_hashed' : "❌ WARNING: action does not match action_hashed" ),
 					
 				];
 			}
@@ -86,7 +86,7 @@ class Cron_Control_Debug_CLI extends WP_CLI_Command {
 		}
 
 		$format = $assoc_args['format'];
-		$formatter = new \WP_CLI\Formatter( $assoc_args, array( 'ID', 'action', 'instance', 'args', 'match', 'args_ok', 'action_match' ), 'cron-control-debug' );
+		$formatter = new \WP_CLI\Formatter( $assoc_args, array( 'ID', 'action', 'instance', 'args', 'args_match', 'args_ok', 'action_match' ), 'cron-control-debug' );
 		$formatter->display_items( $output );
 
 		WP_CLI::line( 'Only displaying problematic events' );
