@@ -18,7 +18,7 @@ class WP_Mail_Test_CLI extends WP_CLI_Command {
 	 */
 	function __invoke( $args, $assoc_args ) {
 
-		$to = absint( WP_CLI\Utils\get_flag_value( $assoc_args, 'to', false ) );
+		$to = WP_CLI\Utils\get_flag_value( $assoc_args, 'to', false );
 
 		$pre_wp_mail = apply_filters( 'pre_wp_mail', null, $atts );
 
