@@ -31,7 +31,7 @@ class WP_Mail_Test_CLI extends WP_CLI_Command {
 		add_action( 'wp_mail_failed', function( $e ) { var_dump( $e ); } );
 		add_action( 'wp_mail_succeeded', function( $mail_data ) { var_dump( $mail_data ); } );
 
-
+		var_dump( sprintf( 'from address: %s', apply_filters( 'wp_mail_from', 'default' ) ) );
 		var_dump( wp_mail( $to, sprintf( 'TEST (%s)', time() ), 'lorem ipsum.' ) );
 
 	}
