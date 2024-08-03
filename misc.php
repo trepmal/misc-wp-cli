@@ -14,4 +14,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require 'commands/wp-mail-test.php';
 	WP_CLI::add_command( 'wp_mail test', 'WP_Mail_Test_CLI' );
 
+	require 'commands/serialized-check.php';
+	WP_CLI::add_command( 'serialized-check', 'Serialized_Check_Command' );
+
 }
