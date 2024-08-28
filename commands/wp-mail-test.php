@@ -14,6 +14,8 @@ class WP_Mail_Test_CLI extends WP_CLI_Command {
 	 * --to=<to>
 	 * : 'to' email address
 	 *
+	 * [--format=<format>]
+	 * : Format to use for the output. One of table, csv or json.
 	 *
 	 */
 	function __invoke( $args, $assoc_args ) {
@@ -28,12 +30,32 @@ class WP_Mail_Test_CLI extends WP_CLI_Command {
 			exit;
 		}
 
-		add_action( 'wp_mail_failed', function( $e ) { var_dump( $e ); } );
-		add_action( 'wp_mail_succeeded', function( $mail_data ) { var_dump( $mail_data ); } );
+		$this->debug_data = [];
 
-		var_dump( sprintf( 'from address: %s', apply_filters( 'wp_mail_from', 'default' ) ) );
-		var_dump( wp_mail( $to, sprintf( 'TEST (%s)', time() ), 'lorem ipsum.' ) );
+		add_action( 'wp_mail_failed', function( $e ) {
+			$this->add_data_row( 'wp_mail_failed', $e );
+		} );
+		add_action( 'wp_mail_succeeded', function( $mail_data ) {
+			$this->add_data_row( 'wp_mail_succeeded', $mail_data );
+		} );
 
+		$this->add_data_row( 'from_address', apply_filters( 'wp_mail_from', 'default' ) );
+
+		$this->add_data_row( 'sent', wp_mail( $to, sprintf( 'TEST FROM %s (%s)', home_url(), time() ), 'lorem ipsum.' ) );
+
+
+		$formatter = new \WP_CLI\Formatter( $assoc_args, array( 'data', 'value' ), 'wp_mail_test' );
+		$formatter->display_items( $this->debug_data );
+	}
+
+	private function add_data_row( $label, $value ) {
+		if ( is_iterable( $value ) ) {
+			foreach ( $value as $k => $v ) {
+				$this->debug_data[] = [ 'data' => "{$label}[{$k}]", 'value' => $v ];
+			}
+		} else {
+			$this->debug_data[] = [ 'data' => $label, 'value' => $value ];
+		}
 	}
 
 }
