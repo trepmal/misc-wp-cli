@@ -17,4 +17,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require 'commands/serialized-check.php';
 	WP_CLI::add_command( 'serialized-check', 'Serialized_Check_Command' );
 
+	require 'commands/post-cache.php';
+	WP_CLI::add_command( 'post cache', 'Post_Cache_Command' );
+
 }
