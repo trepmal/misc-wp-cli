@@ -69,12 +69,21 @@ class Cron_Control_Debug_CLI extends WP_CLI_Command {
 			$args_ok      = unserialize( $job->args ) !== false;
 			$action_match = md5( $job->action ) === $job->action_hashed;
 
-			if ( ! $args_match || ! $args_ok || ! $action_match ) {
+			$lock_key = md5( "ev-{$job->action}" );
+			$locked   = wp_cache_get( "a8ccc_lock_$lock_key" );
+
+			$locked_msg = sprintf(
+				'❌ locked at: %s',
+				date('r', wp_cache_get( "a8ccc_lock_ts_$lock_key") )
+			);
+
+			if ( ! $args_match || ! $args_ok || ! $action_match || $locked ) {
 				$failures++;
 				$output[ $job->ID ] = [
 					'ID'       => $job->ID,
 					'action'   => $job->action,
 					'instance' => $job->instance,
+					'locked'   => $locked ? $locked_msg : '',
 					'args'     => $job->args,
 					'args_match'    => ( $args_match   ? '✅ md5( args ) match instance'        : "❌ WARNING: args do not match instance" ),
 					'args_ok'       => ( $args_ok      ? '✅ args can unserialize'              : "❌ WARNING: cannot unserialize" ),
@@ -86,7 +95,7 @@ class Cron_Control_Debug_CLI extends WP_CLI_Command {
 		}
 
 		$format = $assoc_args['format'];
-		$formatter = new \WP_CLI\Formatter( $assoc_args, array( 'ID', 'action', 'instance', 'args', 'args_match', 'args_ok', 'action_match' ), 'cron-control-debug' );
+		$formatter = new \WP_CLI\Formatter( $assoc_args, array( 'ID', 'action', 'instance', 'locked', 'args', 'args_match', 'args_ok', 'action_match' ), 'cron-control-debug' );
 		$formatter->display_items( $output );
 
 		WP_CLI::line( 'Only displaying problematic events' );
