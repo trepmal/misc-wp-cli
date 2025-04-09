@@ -74,12 +74,24 @@ class Post_Cache_Command extends WP_CLI_Command {
 
 		foreach ( $post_meta_db2 as $field => $value ) {
 			$cached_value = $post_meta_cached[ $field ];
+			unset( $post_meta_cached[ $field ] );
 			$output[] = [
 				'part' => 'meta',
 				'field' => $field,
 				'db_value' => $this->truncate( maybe_serialize( $value ), 200 ),
 				'cache_value' => $this->truncate( maybe_serialize( $cached_value ), 200 ),
 				'match' => $value === $cached_value ? "match" : ( $value == $cached_value ? "match (loose)" : "❌" ),
+			];
+		}
+
+		// any leftover cache values not found in db
+		foreach ( $post_meta_cached as $field => $cached_value ) {
+			$output[] = [
+				'part' => 'meta',
+				'field' => $field,
+				'db_value' => '',
+				'cache_value' => $this->truncate( maybe_serialize( $cached_value ), 200 ),
+				'match' => "❌ not in db",
 			];
 		}
 		if ( $this->did_truncate ) {
