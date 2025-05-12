@@ -20,4 +20,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require 'commands/post-cache.php';
 	WP_CLI::add_command( 'post cache', 'Post_Cache_Command' );
 
+	require 'commands/delete-file.php';
+	WP_CLI::add_command( 'delete-file', 'Delete_File_Command' );
+
 }

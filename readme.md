@@ -23,3 +23,7 @@ Attempts to validate serialization of a string.
 ## `wp post cache check`
 
 Compares db and object cache values.
+
+## `wp delete-file`
+
+Delete file from VIP File System
