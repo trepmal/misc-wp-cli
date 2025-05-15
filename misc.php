@@ -23,4 +23,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require 'commands/delete-file.php';
 	WP_CLI::add_command( 'delete-file', 'Delete_File_Command' );
 
+	require 'commands/find-by-path.php';
+	WP_CLI::add_command( 'find-by-path', 'Find_By_Path_Command' );
+
 }
