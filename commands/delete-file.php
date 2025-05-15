@@ -35,7 +35,17 @@
 			WP_CLI::error( 'Running from a sandbox will not purge cache correctly. Use --sandbox to run anyway.' );
 		}
 
+		$url = esc_url_raw( $url );
+		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
+			WP_CLI::error( 'Not a valid URL: %s', $url );
+		}
+		WP_CLI::log( WP_CLI::colorize( sprintf( '%%bChecking:%%n %s', $url ) ) );
+
 		preg_match('/wp-content\/uploads\/((sites\/(\d+)\/)?(.*?))$/', $url, $matches );
+
+		if ( ! $matches ) {
+			WP_CLI::error( 'Invalid URL, no match to file system path' );
+		}
 
 		list(
 			$wp_content_path, // path starting from wp-content/
