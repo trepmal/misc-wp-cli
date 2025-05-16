@@ -8,8 +8,6 @@
 	/**
 	 * Find attachment by path
 	 *
-	 * Will delete attachment post if found, and cache.
-	 *
 	 * ## OPTIONS
 	 *
 	 * <URL>
