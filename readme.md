@@ -27,3 +27,7 @@ Compares db and object cache values.
 ## `wp delete-file`
 
 Delete file from VIP File System
+
+## `wp find-by-path`
+
+Find attachment by path
