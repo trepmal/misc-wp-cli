@@ -36,6 +36,9 @@
 		}
 
 		$url = esc_url_raw( $url );
+		/**
+		 * TODO: if multisite, use url to determine which subsite.
+		 */
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
 			WP_CLI::error( 'Not a valid URL: %s', $url );
 		}
