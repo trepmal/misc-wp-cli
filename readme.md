@@ -1,5 +1,7 @@
 # Misc WP-CLI Commands
 
+Collection of smallish, simple commands.
+
 ## `wp network list`
 
 List networks. Outputs `wp_site` table.
