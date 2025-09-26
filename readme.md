@@ -4,6 +4,15 @@
 
 List networks. Outputs `wp_site` table.
 
+```
+$ wp network list
++----+-------------+------+
+| id | domain      | path |
++----+-------------+------+
+| 1  | example.com | /    |
++----+-------------+------+
+```
+
 ## `wp site update`
 
 Update domain/path values in `wp_blogs` table by blog ID.
@@ -58,15 +67,6 @@ Delete file from VIP File System
 ## `wp find-by-path`
 
 Find attachment by path
-
-```
-$ wp network list
-+----+-------------+------+
-| id | domain      | path |
-+----+-------------+------+
-| 1  | example.com | /    |
-+----+-------------+------+
-```
 
 ## `wp cap-compare`
 
