@@ -12,10 +12,10 @@ class Cap_Compare_Command {
 	 * ## OPTIONS
 	 *
 	 * [--caps=<caps>]
-	 * : comma-separated list of capabilities to check
+	 * : comma-separated list of capabilities to check. Default all roles.
 	 *
 	 * [--roles=<roles>]
-	 * : comma-separated list of roles to check
+	 * : comma-separated list of roles to check. Default all roles (except some from VIP Support).
 	 *
 	 * [--true-for-x]
 	 * : Use bool values instead of "X"/"" in output
