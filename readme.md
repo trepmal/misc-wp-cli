@@ -31,3 +31,7 @@ Delete file from VIP File System
 ## `wp find-by-path`
 
 Find attachment by path
+
+## `wp cap-compare`
+
+Compare capabilities between user roles

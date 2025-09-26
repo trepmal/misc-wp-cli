@@ -1,4 +1,8 @@
 <?php
+/**
+ * Plugin Name: misc-wp-cli
+ * Author: trepmal
+ */
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
@@ -25,5 +29,8 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 	require 'commands/find-by-path.php';
 	WP_CLI::add_command( 'find-by-path', 'Find_By_Path_Command' );
+
+	require 'commands/cap-compare.php';
+	WP_CLI::add_command( 'cap-compare', 'Cap_Compare_Command' );
 
 }
