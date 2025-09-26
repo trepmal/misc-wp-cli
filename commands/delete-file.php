@@ -27,10 +27,16 @@
 	 */
 	function __invoke( $args, $assoc_args ) {
 
+		// only runs on VIP Go
+		if ( ! defined( 'VIP_GO_APP_ID' ) ) {
+			WP_CLI::error( 'This command can only be run on VIP Go.' );
+		}
+
 		list( $url ) = $args;
 		$skip_library   = \WP_CLI\Utils\get_flag_value( $assoc_args, 'skip-check', false );
 		$sandbox        = \WP_CLI\Utils\get_flag_value( $assoc_args, 'sandbox', false );
 
+		// if running from a VIP Sandbox (VIP Staff only)
 		if ( defined( 'WPCOM_SANDBOXED' ) && WPCOM_SANDBOXED && ! $sandbox ) {
 			WP_CLI::error( 'Running from a sandbox will not purge cache correctly. Use --sandbox to run anyway.' );
 		}
