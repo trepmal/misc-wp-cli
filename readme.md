@@ -43,7 +43,7 @@ Send a test email and report success/failure.
 
 ## `wp serialized-check`
 
-Attempts to validate serialization of a string.
+Attempts to validate serialization of a string (very basic, inner strings only).
 
 ```
 $ wp serialized-check 'a:1:{s:3:"foo";s:3:"bar";}'
@@ -75,11 +75,13 @@ Find attachment by path
 Compare capabilities between user roles
 
 ```
-$ wp cap-compare --caps=publish_posts,upload_files --roles=editor,administrator
-+---------------+--------+---------------+
-| cap           | editor | administrator |
-+---------------+--------+---------------+
-| publish_posts | X      | X             |
-| upload_files  | X      | X             |
-+---------------+--------+---------------+
+$ wp cap-compare --roles=administrator,editor,author --caps=manage_options,publish_pages,unfiltered_html,publish_posts
++-----------------+---------------+--------+--------+
+| cap             | Administrator | Editor | Author |
++-----------------+---------------+--------+--------+
+| manage_options  | X             |        |        |
+| publish_pages   | X             | X      |        |
+| unfiltered_html | X             | X      |        |
+| publish_posts   | X             | X      | X      |
++-----------------+---------------+--------+--------+
 ```
