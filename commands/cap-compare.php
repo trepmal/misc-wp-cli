@@ -108,7 +108,7 @@ class Cap_Compare_Command {
 		foreach ( $caps_data as $cap => $data ) {
 			$count = 0;
 			foreach ( $role_keys as $role_key ) {
-				if ( isset( $data[ $role_key ] ) && 'X' === $data[ $role_key ] ) {
+				if ( isset( $data[ $role_key ] ) && $has_indicator === $data[ $role_key ] ) {
 					$count++;
 				}
 			}
